@@ -903,7 +903,15 @@ NSString *dzn_implementationKey(id target, SEL selector)
             [subviewStrings addObject:@"button"];
             views[[subviewStrings lastObject]] = _button;
 
-            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-padding-[button(>=0)]-padding-|"
+            [self.contentView addConstraint:[NSLayoutConstraint constraintWithItem:_button
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self.contentView
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                        multiplier:1
+                                                                          constant:0]];
+
+            [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(>=padding)-[button(>=0)]-(>=padding)-|"
                                                                                      options:0 metrics:metrics views:views]];
         }
         // or removes from its superview
