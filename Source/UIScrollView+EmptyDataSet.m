@@ -468,29 +468,6 @@ static char const * const kEmptyDataSetView =       "emptyDataSetView";
     }
 }
 
-- (NSInteger)indexForEmptyDataSetView {
-    // Send the view to back, in case a header and/or footer is present
-    if ([self isKindOfClass:[UITableView class]] && self.subviews.count > 1) {
-        if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1 &&
-            floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-            // annoying hack to work around an iOS 7 issue
-            __block NSUInteger *highestIndexOfTableViewFittingSubview = 0;
-            [self.subviews enumerateObjectsUsingBlock:^(UIView *subview, NSUInteger idx, BOOL *stop) {
-                if (CGRectEqualToRect(subview.bounds, self.frame)) {
-                    highestIndexOfTableViewFittingSubview = idx;
-                }
-            }];
-            return highestIndexOfTableViewFittingSubview+1;
-        }
-        else {
-            return 1;
-        }
-    }
-    else {
-        return self.subviews.count;
-    }
-}
-
 - (void)dzn_invalidate
 {
     // Notifies that the empty dataset view will disappear
